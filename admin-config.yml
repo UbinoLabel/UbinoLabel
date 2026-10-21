@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: ubinolabel/ubinolabel.github.io
+  repo: ubinolabel/UbinoLabel
   branch: main
 
 site_url: https://ubinolabel.netlify.app
