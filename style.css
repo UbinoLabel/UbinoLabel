@@ -86,3 +86,6 @@ footer p{margin:0}
 .legal h2{font-family:var(--serif);font-size:1.3rem;margin:30px 0 8px}
 .legal p,.legal li{color:#EDE8E5;max-width:70ch}
 .legal ul{padding-left:20px}
+.social-big{display:flex;flex-wrap:wrap;gap:12px;margin:14px 0}
+.social-big a{display:inline-block;background:#fff;color:#0D0D0F !important;font-weight:800;font-size:1.05rem;text-decoration:none !important;padding:14px 22px;border-radius:8px}
+.social-big a:last-child{background:var(--rust2);color:#fff !important}
