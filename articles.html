@@ -35,6 +35,10 @@
       <a href="conditions.html">Conditions d’utilisation</a>
       <a href="cookies.html">Cookies</a>
     </nav>
+    <nav class="foot" aria-label="Réseaux sociaux">
+      <a href="https://www.instagram.com/ubinolabel" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://www.youtube.com/@Ubinolabel" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </nav>
     <p>© 2026 Ubino Label · Goma, RDC</p>
   </div>
 </footer>
@@ -63,7 +67,7 @@
         var base = slugify(date + " " + x.p.title) || "article", s = base, n = 2;
         while (seen[s]) { s = base + "-" + n; n++; }
         seen[s] = 1;
-        return { slug: s, date: date, idx: x.idx, title: String(x.p.title), text: String(x.p.text || "") };
+        return { slug: s, date: date, idx: x.idx, title: String(x.p.title), text: String(x.p.text || ""), image: String(x.p.image || ""), alt: String(x.p.image_alt || "") };
       })
       .sort(function (a, b) { return a.date < b.date ? 1 : (a.date > b.date ? -1 : b.idx - a.idx); });
   }
@@ -71,6 +75,7 @@
     var x = new Date(d + "T12:00:00");
     return isNaN(x) ? d : x.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
   }
+  function altOf(p) { return p.alt || ("Illustration de l’article : " + p.title); }
   function excerpt(t) {
     var p = t.split("\n\n")[0];
     return p.length > 150 ? p.slice(0, 150).replace(/\s+\S*$/, "") + "…" : p;
@@ -92,6 +97,7 @@
     all.slice((page - 1) * PER_PAGE, page * PER_PAGE).forEach(function (p) {
       var a = el("a", "item");
       a.href = "#a/" + encodeURIComponent(p.slug);
+      if (p.image) { var th = el("img", "thumb"); th.src = p.image; th.alt = altOf(p); th.loading = "lazy"; th.decoding = "async"; a.appendChild(th); }
       a.append(el("time", "", fmt(p.date)), el("h2", "", p.title), el("p", "", excerpt(p.text)));
       list.appendChild(a);
     });
@@ -125,7 +131,9 @@
     var box = el("article", "reader");
     var body = el("div", "body");
     p.text.split("\n\n").forEach(function (par) { body.appendChild(el("p", "", par)); });
-    box.append(el("time", "", fmt(p.date)), el("h2", "", p.title), body);
+    box.append(el("time", "", fmt(p.date)), el("h2", "", p.title));
+    if (p.image) { var pic = el("img", "pic"); pic.src = p.image; pic.alt = altOf(p); pic.decoding = "async"; box.appendChild(pic); }
+    box.appendChild(body);
     var step = el("div", "step");
     if (all[i + 1]) step.appendChild(link("#a/" + encodeURIComponent(all[i + 1].slug), "Article plus ancien"));
     if (all[i - 1]) step.appendChild(link("#a/" + encodeURIComponent(all[i - 1].slug), "Article plus récent"));

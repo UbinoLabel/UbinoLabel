@@ -9,6 +9,17 @@ locale: fr
 media_folder: images/uploads
 public_folder: /images/uploads
 
+media_libraries:
+  default:
+    config:
+      max_file_size: 10485760
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 1600
+
 collections:
   - name: articles
     label: Articles
@@ -26,4 +37,6 @@ collections:
             fields:
               - { label: Titre, name: title, widget: string }
               - { label: Date de publication, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+              - { label: Image (facultative), name: image, widget: image, required: false, hint: "Une photo ou une affiche pour illustrer l’article." }
+              - { label: Description de l’image, name: image_alt, widget: string, required: false, hint: "À remplir si vous ajoutez une image : décrivez-la en une phrase, pour les personnes qui ne la voient pas." }
               - { label: Texte, name: text, widget: text, hint: "Séparez les paragraphes par une ligne vide." }
