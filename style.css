@@ -39,15 +39,29 @@ a:focus-visible,button:focus-visible{outline:3px solid #fff;outline-offset:3px}
   margin: 0 auto;
   display: grid;
   place-items: center;
-  animation: spin 6s linear infinite; /* C'EST ICI QUE TOUT TOURNE */
+  animation: spin 6s linear infinite;
 }
+
 .disc{
+  position: relative;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
   margin: 0;
-  animation: none; /* on enlève l'animation du disque seul */
+  background: #0d0d0f; /* LE NOIR DE RETOUR */
+  background-image: repeating-radial-gradient(circle at center, #1a1a1d 0 2px, #0d0d0f 2px 4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,.8), inset 0 0 0 8px #0d0d0f;
+  border: 2px solid rgba(255,255,255,0.08);
 }
-.disc::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 30deg,transparent 0 18%,rgba(255,255,255,.16) 25%,transparent 32% 68%,rgba(255,255,255,.1) 75%,transparent 82%)}
+
+.disc::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:conic-gradient(from 30deg,transparent 0 18%,rgba(255,255,255,.22) 25%,transparent 32% 68%,rgba(255,255,255,.12) 75%,transparent 82%);
+}
+
 .disc-logo{
   position: absolute;
   width: 38%;
@@ -56,9 +70,10 @@ a:focus-visible,button:focus-visible{outline:3px solid #fff;outline-offset:3px}
   background: #fff;
   padding: 6px;
   object-fit: contain;
-  z-index: 2;
-  box-shadow: 0 0 0 5px rgba(0,0,0,.25);
+  z-index: 3;
+  box-shadow: 0 0 0 6px #0d0d0f;
 }
+
 @keyframes spin{to{transform:rotate(360deg)}}
 
 section{padding:60px 0 0}
